@@ -35,7 +35,7 @@ void draw() {
     saved = false ;
 
 
-    img = loadImage(imgFileName+i+"."+fileType);
+    img = loadImage(imgFileName+nf(i, 4)+"."+fileType);
     size(img.width, img.height);
     image(img, 0, 0);
 
@@ -67,7 +67,6 @@ void draw() {
 
 
 }
-
 
 void sortRow() {
   int x = 0;
