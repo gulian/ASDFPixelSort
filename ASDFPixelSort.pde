@@ -7,9 +7,9 @@ int mode = 1;
 //b(16777216)
 
 PImage img;
-String imgFileName = "PIA15635";
+String imgFileName = "frame";
 String fileType = "png";
-
+int maxFrame = 4440 ; 
 int loops = 1;
 
 int blackValue = -16000000;
@@ -22,34 +22,50 @@ int column = 0;
 boolean saved = false;
 
 void setup() {
-  img = loadImage(imgFileName+"."+fileType);
-  size(img.width, img.height);
-  image(img, 0, 0);
+
 }
 
 
 void draw() {
-  while(column < width-1) {
-    img.loadPixels(); 
-    sortColumn();
-    column++;
-    img.updatePixels();
+
+  for (int i = 0; i < maxFrame ; i++ ) {
+  
+    column = 0 ; 
+    row = 0 ; 
+    saved = false ;
+
+
+    img = loadImage(imgFileName+i+"."+fileType);
+    size(img.width, img.height);
+    image(img, 0, 0);
+
+    while(column < width-1) {
+      img.loadPixels(); 
+      sortColumn();
+      column++;
+      img.updatePixels();
+    }
+    
+    while(row < height-1) {
+      img.loadPixels(); 
+      sortRow();
+      row++;
+      img.updatePixels();
+    }
+    
+    image(img,0,0);
+    if(!saved && frameCount >= loops) {
+      saveFrame(imgFileName+i+"_"+mode+".png");
+      saved = true;
+      println("DONE"+frameCount);
+    }
+
+
   }
   
-  while(row < height-1) {
-    img.loadPixels(); 
-    sortRow();
-    row++;
-    img.updatePixels();
-  }
-  
-  image(img,0,0);
-  if(!saved && frameCount >= loops) {
-    saveFrame(imgFileName+"_"+mode+".png");
-    saved = true;
-    println("DONE"+frameCount);
-    System.exit(0);
-  }
+  System.exit(0);
+
+
 }
 
 
